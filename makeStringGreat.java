@@ -1,20 +1,23 @@
-public class Solution 
+class Solution 
 {
     public String makeGood(String s) 
     {
-        StringBuilder sb = new StringBuilder(s);
-        int i = 0;
+        if (s.length() == 1) {
+            return s;
+        }
 
-        while (i < sb.length() - 1) {
-            if (Math.abs(sb.charAt(i) - sb.charAt(i + 1)) == 32) {
-                sb.delete(i, i + 2);
-                if (i > 0) {
-                    i--;
-                }
-            } else {
-                i++;
+        char[] ch = s.toCharArray();
+        int i = 0;
+        for (int j = 0; j < ch.length; i++, j++) {
+            ch[i] = ch[j];
+            if (i > 0 && isPair(ch[i - 1], ch[i])) {
+                i -= 2;
             }
         }
-        return sb.toString();
+        return new String(ch, 0, i);
+    }
+
+    private boolean isPair(char a, char b) {
+        return Math.abs(a - b) == 32;
     }
 }
